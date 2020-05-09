@@ -50,8 +50,7 @@ const init = async () => {
       path: '/{params*}',
       handler: {
         directory: {
-          path: 'build/index.html',
-          redirectToSlash: true
+          path: 'index.html'
         }
       }
     });
