@@ -2,7 +2,7 @@ const Hapi = require('@hapi/hapi');
 const dotenv = require('dotenv');
 const connectDB = require('./db');
 const routes = require('./Backend/src/controller/route/index');
-const path = require('path');
+const Path = require('path');
 const Inert = require('@hapi/inert');
 
 const PORT = process.env.PORT || 5000;
@@ -38,22 +38,24 @@ server.state('token', {
   clearInvalid: true,
   strictHeader: true
 });
-await server.register(Inert);
+
 server.route(routes);
-if (process.env.NODE_ENV === 'production') {
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: {
-      directory: {
-        path: 'build/index.html',
-        redirectToSlash: true
-      }
-    }
-  });
-}
+
 
 const init = async () => {
+  await server.register(Inert);
+  if (process.env.NODE_ENV === 'production') {
+    server.route({
+      method: 'GET',
+      path: '/{params*}',
+      handler: {
+        directory: {
+          path: 'build/index.html',
+          redirectToSlash: true
+        }
+      }
+    });
+  }
   await server.start();
   console.info('INFO: Server running on %s/documentation', server.info.uri);
   connectDB();
