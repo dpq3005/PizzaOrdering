@@ -20,7 +20,7 @@ const server = Hapi.server({
       exposedHeaders: ['x-auth-token']
     },
     files: {
-      relativeTo: Path.join(__dirname, 'Pizza')
+      relativeTo: Path.join(__dirname, 'client')
     },
     validate: {
       failAction: (request, h, err) => {
