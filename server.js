@@ -39,7 +39,7 @@ server.state('token', {
   strictHeader: true
 });
 
-server.route(routes);
+
 
 
 const init = async () => {
@@ -47,25 +47,17 @@ const init = async () => {
 
   if (process.env.NODE_ENV === 'production') {
     await server.register(Inert);
-    server.route({
-      method: 'GET',
-      path: '/{param*}',
-      handler: {
-        directory: {
-          path: '.'
-        }
-      }
-    });
 
     server.route({
       method: 'GET',
-      path: '/*',
+      path: '/',
       handler: function (request, h) {
 
         return h.file(Path.resolve(__dirname, 'client', 'public', 'index.html'));
       }
     });
   }
+  server.route(routes);
   await server.start();
   console.info('INFO: Server running on %s/documentation', server.info.uri);
   connectDB();
