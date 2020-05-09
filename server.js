@@ -40,16 +40,7 @@ server.state('token', {
 });
 
 server.route(routes);
-server.route({
-  method: 'GET',
-  path: '/{params*}',
-  handler: {
-    directory: {
-      path: '.',
-      redirectToSlash: true
-    }
-  }
-});
+
 
 const init = async () => {
   await server.register(Inert);
@@ -57,7 +48,7 @@ const init = async () => {
 
     server.route({
       method: 'GET',
-      path: '/',
+      path: '/{params*}',
       handler: function (request, h) {
 
         return h.file(Path.resolve(__dirname, 'client', 'public', 'index.html'));
