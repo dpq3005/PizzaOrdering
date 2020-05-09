@@ -21,7 +21,6 @@
     "dotenv": "^8.2.0",
     "faker": "^4.1.0",
     "inert": "^5.1.3",
-    "jest": "^25.5.4",
     "joi": "^14.3.1",
     "joi-image-extension": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
@@ -43,5 +42,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/dpq3005/Final"
-  }
+  },
+  "devDependencies": {}
 }
