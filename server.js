@@ -20,7 +20,7 @@ const server = Hapi.server({
       exposedHeaders: ['x-auth-token']
     },
     files: {
-      relativeTo: Path.join(__dirname, 'client/public')
+      relativeTo: Path.join(__dirname, 'client')
     },
     validate: {
       failAction: (request, h, err) => {
@@ -47,15 +47,23 @@ const init = async () => {
 
   if (process.env.NODE_ENV === 'production') {
     await server.register(Inert);
-
     server.route({
       method: 'GET',
       path: '/{param*}',
-      handler:
-
-        file('index.html')
-
+      handler: {
+        directory: {
+          path: '/public'
+        }
+      }
     });
+    server.route({
+      method: 'GET',
+      path: '/',
+      handler: {
+        file: (Path.resolve(__dirname, 'client', 'public', 'index.html'))
+      }
+    });
+
   }
 
   await server.start();
