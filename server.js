@@ -20,7 +20,7 @@ const server = Hapi.server({
       exposedHeaders: ['x-auth-token']
     },
     files: {
-      relativeTo: Path.join(__dirname, 'client')
+      relativeTo: Path.join(__dirname, 'client/build')
     },
     validate: {
       failAction: (request, h, err) => {
@@ -50,7 +50,7 @@ const init = async () => {
       path: '/{params*}',
       handler: {
         directory: {
-          path: 'public/index.html',
+          path: 'build/index.html',
           redirectToSlash: true
         }
       }
