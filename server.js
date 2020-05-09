@@ -20,7 +20,7 @@ const server = Hapi.server({
       exposedHeaders: ['x-auth-token']
     },
     files: {
-      relativeTo: Path.join(__dirname, 'client/build')
+      relativeTo: Path.join(__dirname, 'client/public')
     },
     validate: {
       failAction: (request, h, err) => {
@@ -39,7 +39,7 @@ server.state('token', {
   strictHeader: true
 });
 
-
+server.route(routes);
 
 
 const init = async () => {
@@ -50,14 +50,14 @@ const init = async () => {
 
     server.route({
       method: 'GET',
-      path: '/',
-      handler: function (request, h) {
+      path: '/{param*}',
+      handler:
 
-        return h.file(Path.resolve(__dirname, 'client', 'public', 'index.html'));
-      }
+        file('index.html')
+
     });
   }
-  server.route(routes);
+
   await server.start();
   console.info('INFO: Server running on %s/documentation', server.info.uri);
   connectDB();
