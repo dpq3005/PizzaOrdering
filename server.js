@@ -45,7 +45,8 @@ server.route({
   path: '/{params*}',
   handler: {
     directory: {
-      path: '.'
+      path: '.',
+      redirectToSlash: true
     }
   }
 });
