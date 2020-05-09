@@ -40,18 +40,26 @@ server.state('token', {
 });
 
 server.route(routes);
-
+server.route({
+  method: 'GET',
+  path: '/{params*}',
+  handler: {
+    directory: {
+      path: '.'
+    }
+  }
+});
 
 const init = async () => {
   await server.register(Inert);
   if (process.env.NODE_ENV === 'production') {
+
     server.route({
       method: 'GET',
-      path: '/{params*}',
-      handler: {
-        directory: {
-          path: 'index.html'
-        }
+      path: '/',
+      handler: function (request, h) {
+
+        return h.file(Path.resolve(__dirname, 'client', 'build', 'index.html'));
       }
     });
   }
