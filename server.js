@@ -62,7 +62,7 @@ const init = async () => {
       path: '/*',
       handler: function (request, h) {
 
-        return h.file(Path.resolve(__dirname, 'client', 'build', 'index.html'));
+        return h.file(Path.resolve(__dirname, 'client', 'public', 'index.html'));
       }
     });
   }
